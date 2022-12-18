@@ -11,36 +11,29 @@ const Register=()=> {
     const [lastName,setLastName] = useState('')
     const [mobileNo,setMobileNo] = useState('')
 
+    var jsonData ={    
+        "email": email,
+            "password": password
+    }
+
     let handleSubmit = async(e) => {
-        // console.warn(email,password)
         e.preventDefault();
-        // try {
-            let res = await fetch('http://localhost:3001/api/register', {
-                method: 'post',
-                // withCredentials: true,  
-                // crossorigin: true,  
-                mode: 'no-cors',
-                body: JSON.stringify({
-                    "email":"email",
-                    "password":"password",
-                    "mobileNo":"mobileNo",
-                    "firstName":"firstName",
-                    "lastName":"lastName" 
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+        const reqData = {
+            method: 'post',
+            mode: 'no-cors',
+            body: JSON.stringify(jsonData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+            try{
+            let res = await fetch('http://localhost:3001/api/register',reqData)
             res = await JSON.stringify(res);
-            alert(res)
-        //   if (res.status === 200) {
-        //       alert("done")
-        //     } else {
-        //         alert("fail")
-        //   }
-        // } catch (err) {
-        //   console.log("🔥d🔥"+err.response);
-        // }
+            console.log("🈯 "+res)
+            }
+            catch(e){
+                    console.log("🔴 "+e);
+            }
       }
 
   return (

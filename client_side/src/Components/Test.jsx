@@ -1,10 +1,10 @@
 import React from 'react'
 import {useState} from 'react'
-import {Redirect,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 
-function Login() {
+function Test() {
     
     const [email,setEmail] = useState('test@gmail.com') //initialized with email and pass for succesfull login
     const [password,setPassword] = useState('test@gmail.com')
@@ -20,7 +20,7 @@ function Login() {
                 crossorigin: true,  
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(jsonData)
+                body: "JSON.stringify(jsonData)"
             };
 
         console.warn(email,password)
@@ -28,7 +28,7 @@ try{
     console.log("🟢 sending data" )
         let res = await fetch('http://localhost:3001/api/login',reqData)
         const data_res = await res.text();
-        console.log("🟢 "+data_res)
+        console.log("🟢 "+res.email)
     }
     catch(e){
             console.log("🔴 "+e)
@@ -38,7 +38,7 @@ try{
   return (
     <div className='container'>
         <div className='form-cont'>
-        <h1 className='center-text'>Login Page</h1>
+        <h1 className='center-text'>Test Page</h1>
         <form >
             <div className='cont'>
             <label 
@@ -79,4 +79,4 @@ try{
   )
 }
 
-export default Login
+export default Test

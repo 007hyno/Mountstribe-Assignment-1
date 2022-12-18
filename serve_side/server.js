@@ -46,15 +46,19 @@ app.get('/:email',async(req,res)=>{//home page route with get
     const response = await userRef.get();
     res.send(response.data());
 })
+
+//Home2
 app.get('/',async(req,res)=>{
   res.header("Access-Control-Allow-Origin", "http://localhost:3000")
     res.send("Testing home api");
 })
 
 //user login 
-
 app.post('/api/login',async(req,res)=>{
   res.header("Access-Control-Allow-Origin", "http://localhost:3000")
+  console.log("🤘🏻s🚀🚀 - "+req)
+  console.log("🤘🏻🚀d🚀 - "+req.get('Content-Type'))
+  res.json(req.body)
         try {
           const userRef = db.collection("users").doc(req.body.email);//taking collectoin reference
           const response = await userRef.get();
