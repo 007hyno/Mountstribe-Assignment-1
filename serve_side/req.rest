@@ -1,0 +1,28 @@
+GET http://localhost:3001/test@gmail.com
+
+###
+POST http://localhost:3001/api/register 
+Content-Type: application/json
+
+{
+    "email":"test@gmail.com",
+    "password":"test@gmail.com",
+    "mobileNo":"1234156789",
+    "firstName":"test " ,
+    "lastName":"Rawat" 
+}
+
+###
+POST http://localhost:3001/api/login 
+Content-Type: application/json  
+
+{
+    "email":"test@gmail.com",
+    "password":"test@gmail.com"
+}
+
+###
+
+###
+###
+###
