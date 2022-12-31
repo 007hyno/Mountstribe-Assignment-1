@@ -1,51 +1,55 @@
 import React from 'react'
 import {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 
 
 
 function Test() {
     
     const [email,setEmail] = useState('test@gmail.com') //initialized with email and pass for succesfull login
-    const [password,setPassword] = useState('test@gmail.com')
+    const [str,setStr] = useState()
+    const [password,setPassword] = useState('test@s.com')
+    const location = useLocation()
+    alert(location.state)
 
       var jsonData ={    
-        "email": email,
-            "password": password
+        "email": email
+        ,"password": password
     }
+    const reqData = {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(jsonData)
+    };
         async function login(e){
+            console.log("😁😚");
             e.preventDefault();
-            const reqData = {
-                method: 'POST',
-                crossorigin: true,  
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: "JSON.stringify(jsonData)"
-            };
-
-        console.warn(email,password)
+            console.log(email,password)
 try{
     console.log("🟢 sending data" )
-        let res = await fetch('http://localhost:3001/api/login',reqData)
-        const data_res = await res.text();
-        console.log("🟢 "+res.email)
+        let res = await fetch('/api/test',reqData)
+        const jj = await res.json();
+        console.log(res.status)
+        console.log(jj.test);
+        setStr(jj.test) 
     }
     catch(e){
-            console.log("🔴 "+e)
+        console.log("🔴 "+e)
     }
+}
 
-        }
   return (
     <div className='container'>
         <div className='form-cont'>
-        <h1 className='center-text'>Test Page</h1>
+        <h1 className='center-text'>{!str?"loding..":str}</h1>
         <form >
             <div className='cont'>
             <label 
             htmlFor="">Email 
             </label>
-            <input 
-            className='input-text'
+            <input className='input-text'
             type="text"
             value={email}
             name='email'
@@ -65,7 +69,7 @@ try{
             }}
             />
             </div>
-            
+            <Link to='/home' state={{email:"parasrawat@gmail.com"}} >Link here</Link>
             <div>
                 <button type='submit'
                 className='login-button'
