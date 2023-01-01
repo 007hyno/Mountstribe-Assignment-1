@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+require('dotenv').config()
+
 app.use(express.json()) //app can accept json
 const bcrypt = require('bcrypt') //for crypting user password
 const port = 8080 //port number
@@ -8,8 +10,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 const fs = require('firebase-admin');
-const serviceAccount = require('./creds.json');
-
+// const serviceAccount = require('./creds.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_API_KEY);
 
 fs.initializeApp({
     credential: fs.credential.cert(serviceAccount)
@@ -79,13 +81,13 @@ app.post('/api/login',async(req,res)=>{
           const userRef = db.collection("users").doc(req.body.email);//taking collectoin reference
           const response = await userRef.get();
           if (!response.exists) { //if user email dosn't exist
-            return res.status(404).json({message:'No such document!'});
+            return res.status(401).json({message:'No such user!'});
           } 
           try{
               if(await bcrypt.compare(req.body.password,response.data().password)){//comp password
                   res.status(200).json({message :response.data().email});
               }else{
-                  res.status(404).json({message:"passoword miss match"})
+                  res.status(402).json({message:"passoword miss match"})
               }
           }catch(err) {
             console.log("🟢🟩"+err.stack);
@@ -99,4 +101,5 @@ app.post('/api/login',async(req,res)=>{
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
+  console.log(process.env);
 })

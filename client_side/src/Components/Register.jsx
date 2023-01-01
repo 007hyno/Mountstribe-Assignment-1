@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState ,useEffect} from 'react'
-import {Redirect,Link,useNavigate, Navigate} from 'react-router-dom'
+import {Link,useNavigate, Navigate} from 'react-router-dom'
 
 
 
@@ -10,6 +10,11 @@ const Register=()=> {
     const [firstName,setFirstName] = useState('')
     const [lastName,setLastName] = useState('')
     const [mobileNo,setMobileNo] = useState('')
+    const [style1,setStyle1] = useState('input')
+    const [style2,setStyle2] = useState('input')
+    const [style3,setStyle3] = useState('input')
+    const [style4,setStyle4] = useState('input')
+    const [style5,setStyle5] = useState('input')
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,28 +37,39 @@ const Register=()=> {
         },
         body: JSON.stringify(jsonData)
     };
+    function validationCheck (){
+        if(firstName==''){
+            setStyle1('inputErr')
+            alert('FirstName is empty')
+            return 0
+        }else if(lastName==''){
+            setStyle2('inputErr')
+            alert('LastName is empty')
+            return 0
+        }else if(email==''){
+            setStyle3('inputErr')
+            alert('Email is empty')
+            return 0
+        }else if(password==''){
+            setStyle4('inputErr')
+            alert('Password is empty')
+            return 0
+        }else if(mobileNo==''){
+            setStyle5('inputErr')
+            alert('Mobileno is empty')
+            return 0
+        }
+    }
+
         async function register(e){
             e.preventDefault();
             //Validations
-            if(firstName==''){
-                alert('email')
-                return
-            }else if(lastName==''){
-                alert('password is empty')
-                return
-            }else if(email==''){
-                alert('firstname')
-                return
-            }else if(password==''){
-                alert('lastname')
-                return
-            }else if(mobileNo==''){
-                alert('mobileno')
-                return
+            if(validationCheck()==0){
+                return 
             }
             console.log(email,password,firstName,lastName,mobileNo)
-try{
-    console.log("🟢 sending data" )
+        try{
+            console.log("🟢 sending data" )
         let res = await fetch('/api/register',reqData)
         const jj = await res.json();
         console.log(res.status)
@@ -61,7 +77,8 @@ try{
             navigate("/login" );
             // navigate("/login",{state:{email:email,password:password}} );
         }else{
-            alert(jj.message)
+            alert(jj.message+"\n Navigate to Login page!")
+            navigate("/login")
         }
     }
     catch(e){
@@ -79,6 +96,7 @@ try{
         <div className='cont'>
         <label htmlFor="">FirstName </label>
         <input type="text"
+        className={style1}
         placeholder='Enter FirstName'
         value={firstName}
         onChange={(e)=>{
@@ -89,6 +107,7 @@ try{
         <div className='cont'>
         <label htmlFor="">LastName </label>
         <input type="text" 
+        className={style2}
         placeholder='Enter LastName'
         value={lastName}
         onChange={(e)=>{
@@ -99,6 +118,7 @@ try{
         <div className='cont'>
         <label htmlFor="">Email </label>
         <input type="email" 
+        className={style3}
         placeholder='Enter Email'
         value={email}
         onChange={(e)=>{
@@ -109,6 +129,7 @@ try{
         <div className='cont'>
         <label htmlFor="">Password </label>
         <input type="password" 
+        className={style4}
         placeholder='Enter Password'
         value={password}
         onChange={(e)=>{
@@ -119,6 +140,7 @@ try{
         <div className='cont'>
         <label htmlFor="">Mobile No. </label>
         <input type="text" 
+        className={style5}
         placeholder='Enter Mobile Number'
         value={mobileNo}
         onChange={(e)=>{

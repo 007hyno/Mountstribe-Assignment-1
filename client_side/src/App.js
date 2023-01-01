@@ -13,7 +13,7 @@ const [auth,setAuth] = useState(false)
 
     <Routes>
       <Route  path="login" element={<Login />}/>
-      <Route  path="/" element={auth?(<Home />):(<Test/>)}/>
+      <Route  path="/" element={auth?(<Home />):(<Login/>)}/>
       <Route  path="register" element={<Register />}/>
       <Route  path="home" element={<Home />}/>
 

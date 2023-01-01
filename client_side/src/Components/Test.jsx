@@ -27,6 +27,7 @@ function Test() {
             console.log("😁😚");
             e.preventDefault();
             console.log(email,password)
+            alert()
 try{
     console.log("🟢 sending data" )
         let res = await fetch('/api/test',reqData)

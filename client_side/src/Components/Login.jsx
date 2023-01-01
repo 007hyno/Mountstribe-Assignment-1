@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
-import {Redirect,Link,useNavigate ,Navigate,useLocation} from 'react-router-dom'
+import {Link,useNavigate ,Navigate,useLocation} from 'react-router-dom'
 
 
 
@@ -9,6 +9,9 @@ function Login() {
     const location = useLocation();
     const [email,setEmail] = useState() 
     const [password,setPassword] = useState()
+    const [style1,setStyle1] = useState('input')
+    const [style2,setStyle2] = useState('input')
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         if(localStorage.auth){
@@ -17,12 +20,11 @@ function Login() {
       }, [])
     
     if(location.state==null){
-        console.log("khali")
+        console.log("empty")
     }else{
         setEmail(location.state.email)
         setPassword(location.state.password)
     }
-    const navigate = useNavigate(); 
 
     var jsonData ={    
         "email": email
@@ -35,28 +37,37 @@ function Login() {
         },
         body: JSON.stringify(jsonData)
     };
-        async function onClick(e){
+    function validationCheck (){
+        if(email==''){
+            setStyle1('inputErr')
+            alert('email is empty')
+            return 0
+        }else if(password==''){
+            setStyle2('inputErr')
+            alert('password is empty')
+            return 0
+        }}
+
+        async function onLogin(e){
             e.preventDefault();
             // form validation
-            if(email==''){
-                alert('email is empty')
-                return
-            }else if(password==''){
-                alert('passoword empty')
-                return
+            if(validationCheck()==0){
+                return 
             }
-try{
-    console.log("🟢 sending data" )
-        let res = await fetch('/api/login',reqData)
-        const jj = await res.json();
-        console.log(res.status)
-        if(res.status===200){
-            localStorage.setItem('auth', true);
-            localStorage.setItem('email',email);
-            navigate("/home");
+            console.log(email,password)
+        try{
+             console.log("🟢 sending data" )
+            let res = await fetch('/api/login',reqData)
+            const jj = await res.json();
+            console.log(res.status)
+            if(res.status===200){
+                localStorage.setItem('auth', true);
+                localStorage.setItem('email',email);
+                navigate("/home");
+            }else{
+                alert(jj.message);
+            }
         }
-        console.log(jj.test);
-    }
     catch(e){
         console.log("🔴 "+e)
         alert("Error")
@@ -66,13 +77,13 @@ try{
     <div className='container'>
         <div className='form-cont'>
         <h1 className='center-text'>Login Page </h1>
-        <form onSubmit={onClick }>
+        <form onSubmit={onLogin }>
             <div className='cont'>
             <label 
             htmlFor="">Email 
             </label>
             <input 
-            className='input-text'
+            className={style1}
             placeholder='Enter Email'
             type="text"
             value={email}
@@ -85,8 +96,8 @@ try{
             <div className='cont'>
             <label htmlFor="">Password </label>
             <input type="password"
+            className={style2}
             placeholder='Enter Password'
-            className='input-text' 
             name='password'
             value={password}
             onChange={(e)=>{

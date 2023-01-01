@@ -6,6 +6,36 @@
   justify-content: center;
   align-items: center;
 }
+.title{
+  margin-top: 10px;
+  margin :1px
+}
+.tape1{
+  font-size: 25px;
+  font-style: bold;
+  padding: 10px 40px;
+  border-radius: 10px;
+}
+.tape2{
+  font-size: 20px;
+  padding: 5px 30px;
+  border-radius: 10px;
+}
+.tape3{
+  font-size: 15px;
+  padding: 4px 20px;
+  border-radius: 10px;
+}
+.tapeClr1{  background-color: grey; color: #080710;}
+.tapeClr2{  background-color: rgb(22, 97, 202); color: white;}
+.tapeClr3{  background-color: rgb(223, 42, 42);color: white;}
+.tapeClr4{  background-color: rgb(45, 217, 36);color: white;}
+.contVer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .cont{
   /* background-color: #61dafb; */
   width: 100%;
@@ -38,11 +68,23 @@ form{
   border-radius: 5px;
   cursor: pointer;
 }
-input{
+.input{
   display: block;
     height: 40px;
     width: 95%;
     background-color: #ffffff12;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+.inputErr{
+  display: block;
+    height: 40px;
+    width: 95%;
+    background-color: #ff000012;
+    border-color: red;
     border-radius: 3px;
     padding: 0 10px;
     margin-top: 8px;
