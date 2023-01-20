@@ -7,7 +7,10 @@ function Home() {
   
   const location = useLocation()
   const navigate = useNavigate()
-  const [email,setEmail] = useState("as");
+  const [email,setEmail] = useState("");
+  const [firstName,setfirstName] = useState("");
+  const [lastName,setlastName] = useState("");
+  const [mobileNo,setmobileNo] = useState("");
   const [temp,setTemp] = useState("s");
   const [city,setCity] = useState();
   const API_KEY = process.env.REACT_APP_API_KEY  
@@ -26,6 +29,9 @@ function Home() {
       navigate("/login")
     }else{
       setEmail(localStorage.getItem("email"))
+      setfirstName(localStorage.getItem("firstName"))
+      setlastName(localStorage.getItem("lastName"))
+      setmobileNo(localStorage.getItem("mobileNo"))
     }
   }, [])
 
@@ -44,8 +50,14 @@ function logout(e){
       <div className='contVer'>
 
         <h1 className='title tape1 tapeClr2'>-: Welcome :-</h1>
-        <p className='title tapeClr4 tape3'>{email?email:"loading.."}</p>
+        <div className='profileDetCont'>
+          <p className='title tb'>User Details</p>
+        <p className='title tapeClr4 tape3'>FirstName: {firstName?firstName:"loading.."}</p>
+        <p className='title tapeClr4 tape3'>LastName: {lastName?lastName:"loading.."}</p>
+        <p className='title tapeClr4 tape3'>Email: {email?email:"loading.."}</p>
+        <p className='title tapeClr4 tape3'>Mobile: {mobileNo?mobileNo:"loading.."}</p>
         <p>Temperature is {temp?temp+"°C":"loading..."} in {city?city:"loading.."}</p>
+        </div>
         <button className='login-button' onClick={logout}>Logout</button>
       </div>
     </div>

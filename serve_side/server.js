@@ -4,7 +4,7 @@ require('dotenv').config()
 
 app.use(express.json()) //app can accept json
 const bcrypt = require('bcrypt') //for crypting user password
-const port = 8080 //port number
+const port = 3001 //port number
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
@@ -59,7 +59,7 @@ app.get('/:email',async(req,res)=>{//home page route with get
     res.send(response.data());
 })
 
-//Home2
+//Api for post testing only
 app.post('/api/test',async(req,res)=>{
   // res.header("Access-Control-Allow-Origin", "http://localhost:3000")
   console.log("post req 😍");
@@ -68,6 +68,7 @@ app.post('/api/test',async(req,res)=>{
   res.status(200).json({test:req.body.email});
 })
 
+//Api for get testing only
 app.get('/api/test',async(req,res)=>{
   console.log("get req 😊");
     res.status(200).json({test:"req.body.email"});
@@ -85,7 +86,11 @@ app.post('/api/login',async(req,res)=>{
           } 
           try{
               if(await bcrypt.compare(req.body.password,response.data().password)){//comp password
-                  res.status(200).json({message :response.data().email});
+                  res.status(200).json({message :{"firstName":response.data().firstName,
+                "lastName":response.data().lastName,  
+                "email":response.data().email,  
+                "mobileNo":response.data().mobileNo,  
+                }});
               }else{
                   res.status(402).json({message:"passoword miss match"})
               }

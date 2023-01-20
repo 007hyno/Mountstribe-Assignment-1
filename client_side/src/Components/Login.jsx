@@ -61,8 +61,15 @@ function Login() {
             const jj = await res.json();
             console.log(res.status)
             if(res.status===200){
+                console.warn(jj.message.firstName);
+                console.warn(jj.message.lastName);
+                console.warn(jj.message.email);
+                console.warn(jj.message.mobileNo);
                 localStorage.setItem('auth', true);
-                localStorage.setItem('email',email);
+                localStorage.setItem('firstName',jj.message.firstName);
+                localStorage.setItem('lastName',jj.message.lastName);
+                localStorage.setItem('email',jj.message.email);
+                localStorage.setItem('mobileNo',jj.message.mobileNo);
                 navigate("/home");
             }else{
                 alert(jj.message);
