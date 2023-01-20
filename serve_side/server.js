@@ -4,7 +4,7 @@ require('dotenv').config()
 
 app.use(express.json()) //app can accept json
 const bcrypt = require('bcrypt') //for crypting user password
-const port = 8080 //port number
+const port = 8081 //port number
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
