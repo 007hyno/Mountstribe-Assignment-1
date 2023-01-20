@@ -71,7 +71,7 @@ app.post('/api/test',async(req,res)=>{
 //Api for get testing only
 app.get('/api/test',async(req,res)=>{
   console.log("get req 😊");
-    res.status(200).json({test:"req.body.email"});
+    res.status(200).json({test:"API is working fine.. :)"});
 })
 
 //user login 
